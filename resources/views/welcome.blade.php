@@ -18,6 +18,14 @@
     <style>
         body {
             padding-top: 54px;
+            padding-bottom: 100px;
+        }
+
+        footer{
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
         }
 
         @media (min-width: 992px) {
