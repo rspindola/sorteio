@@ -44,10 +44,9 @@
 
     <!-- Page Content -->
     <div class="container">
-
         <!-- Jumbotron Header -->
-        <header class="jumbotron my-4 text-center">
-            <h1 class="display-3">Votação</h1>
+        <header class="jumbotron m-0 text-center">
+            <h1 class="display-3">FOCO NA FOTO</h1>
         </header>
         <!-- Page Features -->
         <div class="row text-center parent-container">
@@ -108,7 +107,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Sensorial Web House 2018</p>
         </div>
         <!-- /.container -->
     </footer>
