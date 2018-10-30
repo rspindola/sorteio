@@ -18,7 +18,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-    {!! Form::open(['route' => 'item.store','method'=>'POST','files'=>true**]) !!}
+    {!! Form::open(['route' => 'item.store','method'=>'POST','files'=>true]) !!}
     <div class="form-body">
         <div class="row p-t-20">
             <div class="col-md-8">
