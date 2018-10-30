@@ -43,10 +43,11 @@ class ItemController extends Controller
         
         //pegando e manipulando os dados da logo
         if ($request->imagem) {
+            return dd('ok');
+
             $imagem = $request->imagem;
             $filename = 'thumb-'.str_random(10).time().'.'.$imagem->getClientOriginalExtension(); 
             $destinationPath = public_path('images/thumb');
-            return dd('ok');
             $thumb_img = Image::make($imagem->getRealPath())->resize(795, 550);
             $thumb_img->save($destinationPath.'/'.$filename,80);
             
