@@ -58,7 +58,7 @@ class ItemController extends Controller
 
         $item = Item::create($input);
         return redirect()->route('item.index')
-                        ->with('success','User created successfully');
+                        ->with('success','Item criado com sucesso.');
     }
     /**
      * Display the specified resource.
@@ -111,7 +111,7 @@ class ItemController extends Controller
         $item = Item::find($id);
         $item->update($input);
         return redirect()->route('item.index')
-                        ->with('success','User updated successfully');
+                        ->with('success','Item alterado com sucesso');
     }
     /**
      * Remove the specified resource from storage.
@@ -123,6 +123,6 @@ class ItemController extends Controller
     {
         Item::find($id)->delete();
         return redirect()->route('item.index')
-                        ->with('success','User deleted successfully');
+                        ->with('success','Item deletado com sucesso');
     }
 }
