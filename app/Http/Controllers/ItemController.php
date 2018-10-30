@@ -47,11 +47,10 @@ class ItemController extends Controller
             $filename = 'thumb-'.str_random(10).time().'.'.$imagem->getClientOriginalExtension(); 
             $destinationPath = public_path('images/thumb');
             $thumb_img = Image::make($imagem->getRealPath())->encode('jpg', 75)->resize(795, 550);
-            return dd('aqui');
             $thumb_img->save($destinationPath.'/'.$filename,80);
             
             $destinationPath = public_path('images');
-            $original = Image::make($imagem->getRealPath());
+            $original = Image::make($imagem->getRealPath())->encode('jpg', 75);
             $original->save($destinationPath.'/'.$filename);
 
             $input['imagem'] = $filename;
@@ -100,11 +99,11 @@ class ItemController extends Controller
             $imagem = $request->imagem;
             $filename = 'thumb-'.str_random(10).time().'.'.$imagem->getClientOriginalExtension(); 
             $destinationPath = public_path('images/thumb');
-            $thumb_img = Image::make($imagem->getRealPath())->resize(795, 550);
+            $thumb_img = Image::make($imagem->getRealPath())->encode('jpg', 75)->resize(795, 550);
             $thumb_img->save($destinationPath.'/'.$filename,80);
             
             $destinationPath = public_path('images');
-            $original = Image::make($imagem->getRealPath());
+            $original = Image::make($imagem->getRealPath())->encode('jpg', 75);
             $original->save($destinationPath.'/'.$filename);
 
             $input['imagem'] = $filename;
