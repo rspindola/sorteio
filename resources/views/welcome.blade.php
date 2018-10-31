@@ -53,7 +53,7 @@
     <!-- Page Content -->
     <div class="container">
         <!-- Jumbotron Header -->
-        <header class="jumbotron m-0 text-center">
+        <header class="jumbotron my-4 text-center">
             <h1 class="display-3">FOCO NA FOTO</h1>
         </header>
         <!-- Page Features -->
