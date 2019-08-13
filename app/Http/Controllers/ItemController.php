@@ -38,6 +38,7 @@ class ItemController extends Controller
     {
         $this->validate($request, [
             'titulo' => 'required',
+            'imagem' => 'required'
         ]);
         $input = $request->all();
         

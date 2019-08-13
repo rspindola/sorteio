@@ -19,4 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('admin/item', 'ItemController');
-Route::resource('admin/voto', 'VotoController');
+Route::get('admin/voto', 'VotoController@index')->name('voto.index');
+Route::post('voto/store','VotoController@store')->name('voto.store');

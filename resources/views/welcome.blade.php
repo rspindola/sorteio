@@ -12,65 +12,40 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+    <link rel="stylesheet" href="{{asset('css/main.css')}}">
     <!-- Custom styles for this template -->
-    <style>
-        body {
-            padding-top: 54px;
-            padding-bottom: 100px;
-        }
-
-        footer{
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-
-        @media (min-width: 992px) {
-            body {
-                padding-top: 56px;
-            }
-        }
-
-        .card {
-            height: 100%;
-        }
-
-    </style>
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container text-center">
-            <a class="navbar-brand" href="#">Sensorial</a>
+
+    <header class="jumbotron text-center">
+        <div class="col-12 col-md-4 mx-auto text-center">
+            <img src="{{asset('images/logo.png')}}" alt="" class="img-fluid d-block mx-auto">
+            <p class="titulo"><span>FOCO</span><br /> NA FOTO</p>
         </div>
-    </nav>
+    </header>
 
     <!-- Page Content -->
     <div class="container">
-        <!-- Jumbotron Header -->
-        <header class="jumbotron my-4 text-center">
-            <h1 class="display-3">FOCO NA FOTO</h1>
-        </header>
-        <!-- Page Features -->
-        <div class="row text-center parent-container">
+        <div class="card-columns">
             @foreach(App\Item::all() as $item)
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <a href="{{asset('/images/'.$item->imagem)}}">
-                    <img class="card-img-top" src="{{asset('/images/thumb/'.$item->imagem)}}" alt="">
-                    </a>
-                    <div class="card-body">
-                        <h4 class="card-title">{{$item->titulo}}</h4>
+            <div class="card my-3">
+                <a href="{{asset('/images/'.$item->imagem)}}" data-source="http://500px.com/photo/32736307"
+                    title="{{$item->titulo}}">
+                    <img class="card-img-top img-fluid image" src="{{asset('/images/'.$item->imagem)}}" alt="">
+                    <div class="middle">
+                        <div class="text">{{$item->titulo}}</div>
                     </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary votar" data-id='{{$item->id}}' data-titulo="{{$item->titulo}}">Votar</button>
-                    </div>
-                </div>
+                </a>
+                <p class="card-text">
+                    <button class="btn btn-primary btn-sm mx-auto d-block votar btn-block my-2" data-id='{{$item->id}}'
+                        data-titulo="{{$item->titulo}}">Votar</button>
+                </p>
             </div>
             @endforeach
             @if((App\Item::all())->count() > 0)
@@ -78,29 +53,35 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">CONFIRMAR VOTO</h4>
+                            <h4 class="modal-title">CONFIRMAÇÃO</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					            <span aria-hidden="true">&times;</span>
-				            </button>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div class="modal-body text-left">
                             <div class="col-md-12">
                                 <p>Deseja confirmar seu voto na foto: <strong><span id="item"></strong></span>?
                             </div>
-                            {!! Form::open(['method' => 'POST','route' => ['voto.store', $item->id],'style'=>'display:inline']) !!}
+                            <form class="form" method="POST" action="{{route('voto.store')}}" style='display:inline'>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    
                             <input name="item_id" type="hidden" class="form-control" id="item_id">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {!! Form::email('email', null, array('placeholder' => 'Digite o e-mail para confirmação','class' => 'form-control','required')) !!}
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input id="email" type="email"
+                                            class="form-control" name="email"
+                                            value="{{ old('email') }}" autocomplete="email"
+                                            title="O campo e-mail deve ser preenchido" data-rule-required="true">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                            <div class="form-actions float-right">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-success">Confirmar</button>
-                            </div>
-                            </div>
-                            {!! Form::close() !!}
+                                <div class="col-md-12">
+                                    <div class="form-actions text-center">
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success btn-sm">Confirmar</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -121,26 +102,52 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script>
-        $('.parent-container').magnificPopup({
-            delegate: 'a', // child items selector, by clicking on it popup will open
-            type: 'image'
-            // other options
+        $('.card-columns').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            closeOnContentClick: false,
+            closeBtnInside: false,
+            mainClass: 'mfp-with-zoom mfp-img-mobile',
+            image: {
+                verticalFit: true,
+                titleSrc: function (item) {
+                    return item.el.attr('title') + ' &middot; <a class="image-source-link" href="' + item.el
+                        .attr('data-source') + '" target="_blank">image source</a>';
+                }
+            },
+            gallery: {
+                enabled: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 300, // don't foget to change the duration also in CSS
+                opener: function (element) {
+                    return element.find('img');
+                }
+            }
+
         });
 
         // delete a post
-        $('.votar').on('click', function() {
-            $('.modal-title').text('Excluir Moeda');
+        $('.votar').on('click', function () {
             $('#item_id').val($(this).data('id'));
             $('#item').html($(this).data('titulo'));
             $('#excluir-moeda').modal('show');
             id = $('#id_delete').val();
         });
-        $('.delete').on('click', function() {
+
+        $('.delete').on('click', function () {
             var token = $(this).data('token');
             $.ajax({
                 url: '/admin/cotacao/delete/' + id,
@@ -148,7 +155,7 @@
                 data: {
                     _token: token
                 },
-                success: function(data) {
+                success: function (data) {
                     toastr.success('Cotacao excluida com sucesso!', 'Success Alert', {
                         timeOut: 5000
                     });
@@ -156,7 +163,6 @@
                 }
             });
         });
-
     </script>
 </body>
 

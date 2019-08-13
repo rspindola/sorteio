@@ -39,7 +39,7 @@
         <!--/row-->
     </div>
     <div class="form-actions pull-right">
-        <a href="{{url('/usuarios')}}" type="button" class="btn btn-danger">Voltar</a>
+        <a href="{{url('/admin/item')}}" type="button" class="btn btn-danger">Voltar</a>
         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Salvar</button>
     </div>
     {!! Form::close() !!}
